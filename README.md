@@ -10,7 +10,7 @@ air_conditioner_apiの横で動作するMQTTのagent
 
 prefix: `{PROJECT_ID}/air_conditioner_api_mqtt_agent`
 
-### on
+## on hot or cool
 
 ##### topic
 
@@ -30,7 +30,7 @@ prefix: `{PROJECT_ID}/air_conditioner_api_mqtt_agent`
 ```
 
 
-### on
+### on dehumidify
 
 ##### topic
 
@@ -49,7 +49,20 @@ prefix: `{PROJECT_ID}/air_conditioner_api_mqtt_agent`
 ```
 
 
-### ping
+## off
+
+##### topic
+
+`{prefix}/off`
+
+##### schema
+
+```js
+None
+```
+
+
+## ping
 
 ##### topic
 
@@ -63,7 +76,7 @@ None
 
 
 
-### reboot
+## reboot
 
 rebbot this mqtt agent
 
@@ -90,7 +103,7 @@ None
 
 prefix: `{PROJECT_ID}/air_conditioner_api_mqtt_agent`
 
-### ack
+## ack
 
 ping ack
 
@@ -106,7 +119,7 @@ None
 
 
 
-### state
+## state
 
 latest air conditioner state
 
