@@ -1,6 +1,7 @@
 # air_conditioner_api_mqtt_agent
 
-air_conditioner_apiの横で動作するMQTTのagent
+air_conditioner_apiの横で動作するMQTTのagent。
+MQTT経由でsubscribeしていたコマンドイベントから、air confitioner apiを叩くことができる。
 
 
 # Subscribe Topics
@@ -30,7 +31,7 @@ prefix: `{PROJECT_ID}/air_conditioner_api_mqtt_agent`
 ```
 
 
-### on dehumidify
+## on dehumidify
 
 ##### topic
 
@@ -113,8 +114,16 @@ ping ack
 
 ##### schema
 
-```js
-None
+- mqtt_agent: boolean
+- air_conditioner_api: boolean
+
+true: OK, false: not running
+
+```json
+{
+    "mqttAgent": true,
+    "airConditionerApi": true
+}
 ```
 
 
@@ -129,17 +138,18 @@ latest air conditioner state
 
 ##### schema
 
-
-- type: string = "cool" | "hot" | "dehumidify" | "off"
-- temperature: number | null = 16 ~ 31 | null(only type="off" or "dehumidify")
-- dehumidificationLevel: number | null = 1 ~ 3 | null(only type = "off" or "hot" or "cool")
-- airflowLevel: string = "a" | "1" | "2" | "3" | "null"(only type="off")
+- isRunning: boolean
+- type: string = "cool" | "hot" | "dehumidify"
+- temperature: number | null = 16 ~ 31 | null(only type="dehumidify")
+- dehumidificationLevel: number | null = 1 ~ 3 | null(only type ="hot" or "cool")
+- airflowLevel: string = "a" | "1" | "2" | "3"
 
 
 type = "cool" or "hot"
 
 ```json
 {
+    "isRunning": true,
     "type": "cool",
     "temperature": 26,
     "dehumidificationLevel": null,
@@ -153,10 +163,11 @@ type = "off"
 
 ```json
 {
-    "type": "off",
-    "temperature": null,
+    "isRunning": true,
+    "type": "hot",
+    "temperature": 27,
     "dehumidificationLevel": null,
-    "airflowLevel": null
+    "airflowLevel": "a"
 }
 ```
 
@@ -166,7 +177,8 @@ type = "dehumidify"
 
 ```json
 {
-    "type": "off",
+    "isRunning": false,
+    "type": "dehumidify",
     "temperature": null,
     "dehumidificationLevel": 2,
     "airflowLevel": "2"
