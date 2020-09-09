@@ -1,0 +1,13 @@
+{
+    "project_id": "00000000",
+    "broker": "***.***.***.***",
+    "port": 1883,
+    "username": "",
+    "password": "",
+    "qos": 0,
+    "keepalive": 60,
+    "air_conditioner_api_server": {
+        "host": "localhost",
+        "port": 40001
+    }
+}
